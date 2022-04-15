@@ -27,7 +27,8 @@ function generateRandomString(length = 16) {
 }
 
 function getHeaders() {
-  // or axios.defaults.headers['Authorization']='<token>'
+  // or axios.defaults.headers['Authorization']='<token>';
+
   const credentials: Credentials = JSON.parse(
     localStorage.getItem("credentials") as string
   );
