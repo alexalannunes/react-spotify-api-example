@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import { useEffect, useRef, useState } from "react";
 import "./App.css";
 import logo from "./logo.svg";
@@ -13,6 +13,20 @@ interface Credentials {
   tokenType: string;
   expiresIn: string;
   state: string;
+}
+
+export interface User {
+  display_name: string;
+  id: string;
+  images: Image[];
+  product: string;
+  type: string;
+}
+
+export interface Image {
+  height: any;
+  url: string;
+  width: any;
 }
 
 function generateRandomString(length = 16) {
@@ -43,7 +57,7 @@ function App() {
   const params = useRef(new URLSearchParams(location.hash.slice(1)));
 
   const [logged, setLogged] = useState(false);
-  const [user, setUser] = useState<any>({});
+  const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
     if (params.current.get("access_token")) {
@@ -83,9 +97,19 @@ function App() {
   };
 
   const handleMe = () => {
-    api.get("/me", { headers: getHeaders() }).then((response) => {
-      setUser(response.data);
-    });
+    api
+      .get("/me", { headers: getHeaders() })
+      .then((response: AxiosResponse<User>) => {
+        const userData: User = {
+          display_name: response.data.display_name,
+          id: response.data.id,
+          images: response.data.images,
+          product: response.data.product,
+          type: response.data.type,
+        };
+        setUser(userData);
+        localStorage.setItem("user", JSON.stringify(userData));
+      });
   };
 
   const handleMyPlaylist = () => {
