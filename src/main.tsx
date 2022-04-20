@@ -1,7 +1,6 @@
 import { AxiosResponse } from "axios";
 import React, {
   createContext,
-  FC,
   ReactNode,
   useContext,
   useEffect,
