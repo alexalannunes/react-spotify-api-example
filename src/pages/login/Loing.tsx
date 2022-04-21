@@ -7,7 +7,12 @@ const Login: React.FC = () => {
   const { setCredential } = useAuthContext();
 
   const handleLogin = () => {
-    setCredential({ d: 1 });
+    setCredential({
+      accessToken: "",
+      expiresIn: "",
+      state: "",
+      tokenType: "",
+    });
     navigate("/");
     // var myWindow = window.open("", "", "width=400,height=500");
   };

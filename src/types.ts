@@ -23,13 +23,11 @@ export interface UserType {
   data: User | null;
 }
 
-export interface SpotifyContextType {
-  credentials: Credentials;
+export interface AuthContextType {
+  credentials: Credentials | null;
+  setCredential: (credentials: Credentials) => void;
   user: UserType;
-  login: () => void;
   setUser: (user: UserType) => void;
-  playlist: Playlist | null;
-  setPlaylist: (playlist: Playlist) => void;
 }
 
 export interface Playlist {
