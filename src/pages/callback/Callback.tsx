@@ -1,12 +1,66 @@
-import React from "react";
+import { AxiosResponse } from "axios";
+import React, { useCallback, useEffect } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { Credentials, User, UserType } from "../../types";
+import { api } from "../../utils";
+import { useAuthContext } from "../Layout";
 
 const Callback: React.FC = () => {
+  const navigate = useNavigate();
+  const [params] = useSearchParams(window.location.hash.slice(1));
+  const { credentials, setCredential, setUser } = useAuthContext();
+
+  useEffect(() => {
+    if (params.get("access_token")) {
+      const searchParamsCredentials: Credentials = {
+        accessToken: params.get("access_token")!,
+        tokenType: params.get("token_type")!,
+        expiresIn: params.get("expires_in")!,
+        state: params.get("state")!,
+      };
+      setCredential(searchParamsCredentials);
+      localStorage.setItem(
+        "session:credentials",
+        JSON.stringify(searchParamsCredentials)
+      );
+
+      handleMe();
+    }
+  }, []);
+
+  const handleMe = useCallback(() => {
+    console.log("o");
+
+    if (params.get("access_token")) {
+      const token = `${credentials?.tokenType} ${credentials?.accessToken}`;
+      const headers = {
+        Authorization: token,
+      };
+      api
+        .get("/me", {
+          headers,
+        })
+        .then((response: AxiosResponse<User>) => {
+          const userData: UserType = {
+            status: "idle",
+            data: {
+              display_name: response.data.display_name,
+              id: response.data.id,
+              images: response.data.images,
+              product: response.data.product,
+              type: response.data.type,
+            },
+          };
+          setUser(userData);
+          localStorage.setItem("session:user", JSON.stringify(userData));
+          navigate("/");
+        });
+    }
+  }, [params, credentials]);
+
   return (
     <div>
-      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iusto quas
-      eveniet deleniti eaque? Ipsam, suscipit libero, atque voluptate facilis
-      soluta quia veritatis temporibus laborum saepe, alias earum? In, autem ad?
-      <h1>callback</h1>
+      <h1>Redirecting...</h1>
     </div>
   );
 };
