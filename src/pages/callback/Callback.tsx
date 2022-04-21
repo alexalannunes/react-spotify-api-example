@@ -24,39 +24,33 @@ const Callback: React.FC = () => {
         JSON.stringify(searchParamsCredentials)
       );
 
-      handleMe();
+      handleMe(searchParamsCredentials);
     }
   }, []);
 
-  const handleMe = useCallback(() => {
-    console.log("o");
-
+  const handleMe = useCallback((credentials: Credentials) => {
     if (params.get("access_token")) {
-      const token = `${credentials?.tokenType} ${credentials?.accessToken}`;
+      const token = `${credentials.tokenType} ${credentials.accessToken}`;
       const headers = {
         Authorization: token,
       };
-      api
-        .get("/me", {
-          headers,
-        })
-        .then((response: AxiosResponse<User>) => {
-          const userData: UserType = {
-            status: "idle",
-            data: {
-              display_name: response.data.display_name,
-              id: response.data.id,
-              images: response.data.images,
-              product: response.data.product,
-              type: response.data.type,
-            },
-          };
-          setUser(userData);
-          localStorage.setItem("session:user", JSON.stringify(userData));
-          navigate("/");
-        });
+      api.get("/me", { headers }).then((response: AxiosResponse<User>) => {
+        const userData: UserType = {
+          status: "idle",
+          data: {
+            display_name: response.data.display_name,
+            id: response.data.id,
+            images: response.data.images,
+            product: response.data.product,
+            type: response.data.type,
+          },
+        };
+        setUser(userData);
+        localStorage.setItem("session:user", JSON.stringify(userData));
+        navigate("/");
+      });
     }
-  }, [params, credentials]);
+  }, []);
 
   return (
     <div>
