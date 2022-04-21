@@ -1,0 +1,25 @@
+:root {
+  --height: 60px;
+}
+.headerContent {
+  display: flex;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--height);
+}
+.headerContent {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  max-width: 920px;
+  margin: 0 auto;
+}
+.main {
+  margin: calc(var(--height) + 30px) auto 0;
+  width: 100%;
+  max-width: 920px;
+}

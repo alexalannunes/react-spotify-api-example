@@ -1,7 +1,7 @@
 import React, { createContext, ReactNode, useContext, useState } from "react";
 import { Outlet } from "react-router-dom";
 import { AuthContextType, Credentials, UserType } from "../types";
-
+import styles from "./layout.module.css";
 export const AuthContext = createContext<AuthContextType>({
   credentials: null,
   setCredential: (crentential) => {},
@@ -38,10 +38,21 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 export const useAuthContext = () => useContext(AuthContext);
 
 const Layout: React.FC = () => {
+  const { user } = useAuthContext();
   return (
     <div>
-      <header>header</header>
-      <main>
+      <header className={styles.header}>
+        {user.data && (
+          <div className={styles.headerContent}>
+            <img
+              src={user.data.images[0].url}
+              style={{ width: 40, height: 40, borderRadius: 100 }}
+            />
+            <h4>{user.data.display_name}</h4>
+          </div>
+        )}
+      </header>
+      <main className={styles.main}>
         <Outlet />
       </main>
     </div>
