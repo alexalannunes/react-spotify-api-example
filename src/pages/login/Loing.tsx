@@ -1,8 +1,15 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuthContext } from "../Layout";
 import styles from "./login.module.css";
 const Login: React.FC = () => {
+  const navigate = useNavigate();
+  const { setCredential } = useAuthContext();
+
   const handleLogin = () => {
-    var myWindow = window.open("", "", "width=400,height=500");
+    setCredential({ d: 1 });
+    navigate("/");
+    // var myWindow = window.open("", "", "width=400,height=500");
   };
   return (
     <div className={styles.login}>
