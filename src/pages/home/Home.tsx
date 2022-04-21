@@ -5,10 +5,8 @@ import React from "react";
 const Home: React.FC = () => {
   return (
     <div>
-      <h1>home</h1>
-      Lorem ipsum dolor sit amet consectetur, adipisicing elit. Soluta autem,
-      numquam nam quidem beatae assumenda fugiat ab porro reiciendis dolorum
-      dolore enim libero voluptatibus qui nulla sint. Eligendi, vero assumenda.
+      <h1>My Playlist</h1>
+      loading...
     </div>
   );
 };
