@@ -16,7 +16,7 @@ const Login: React.FC = () => {
     url += "&redirect_uri=" + encodeURIComponent(redirectUri);
     url += "&state=" + encodeURIComponent(state);
 
-    window.open(url);
+    window.open(url, "_self");
   };
   return (
     <div className={styles.login}>
