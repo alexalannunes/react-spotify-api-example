@@ -1,22 +1,19 @@
+import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import { UserLogged } from "./components/UserLogged";
-import logo from "./logo.svg";
-import { getHeaders, useSpotifyContext } from "./main";
-import { api } from "./utils";
+import { Home } from "./pages/home/Home";
+import { Layout } from "./pages/Layout";
+import { Login } from "./pages/login/Loing";
 
 function App() {
-  const { user, setPlaylist } = useSpotifyContext();
-  const handleMyPlaylist = () => {
-    api.get("/me/playlists", { headers: getHeaders() }).then((response) => {
-      setPlaylist(response.data);
-    });
-  };
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        {user?.data && <UserLogged {...user.data} />}
-        <button onClick={handleMyPlaylist}>playlist</button>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Home />} />
+          </Route>
+          <Route path="/login" element={<Login />} />
+        </Routes>
       </header>
     </div>
   );
