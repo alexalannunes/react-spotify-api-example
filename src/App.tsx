@@ -3,6 +3,7 @@ import { Callback } from "./pages/callback/Callback";
 import { Home } from "./pages/home/Home";
 import { AuthProvider, Layout } from "./pages/Layout";
 import { Login } from "./pages/login/Loing";
+import { Tracks } from "./pages/tracks/Tracks";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
             </Route>
             <Route path="/login" element={<Login />} />
             <Route path="/callback" element={<Callback />} />
+            <Route path="/playlist/:playlistId" element={<Tracks />} />
           </Routes>
         </AuthProvider>
       </header>
