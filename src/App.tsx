@@ -1,5 +1,4 @@
 import { Route, Routes } from "react-router-dom";
-import "./App.css";
 import { Callback } from "./pages/callback/Callback";
 import { Home } from "./pages/home/Home";
 import { AuthProvider, Layout } from "./pages/Layout";
