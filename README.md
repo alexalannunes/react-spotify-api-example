@@ -8,7 +8,7 @@ Made with React :heart:
 - [x] create authContext
 - [x] login feature
 - [x] callback page and redirect to /
-- [ ] list playlist feature
+- [x] list playlist feature
 - [ ] list playslist tracks
 - [ ] show current music playing
 - [ ] use useQuery or swr
